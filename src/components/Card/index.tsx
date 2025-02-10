@@ -4,29 +4,29 @@ import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
-import type { Post } from '@/payload-types'
+import type { Location } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
+export type CardPostData = Pick<Location, 'slug' | 'title'>
 
 export const Card: React.FC<{
   alignItems?: 'center'
   className?: string
   doc?: CardPostData
-  relationTo?: 'posts'
+  relationTo?: 'locations'
   showCategories?: boolean
   title?: string
 }> = (props) => {
   const { card, link } = useClickableCard({})
-  const { className, doc, relationTo, showCategories, title: titleFromProps } = props
+  const { className, doc, relationTo, title: titleFromProps } = props
 
-  const { slug, categories, meta, title } = doc || {}
-  const { description, image: metaImage } = meta || {}
+  const { slug, title } = doc || {}
+  // const { description, image: metaImage } = meta || {}
 
-  const hasCategories = categories && Array.isArray(categories) && categories.length > 0
+  // const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
-  const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
+  // const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/${relationTo}/${slug}`
 
   return (
@@ -37,12 +37,12 @@ export const Card: React.FC<{
       )}
       ref={card.ref}
     >
-      <div className="relative w-full ">
+      {/* <div className="relative w-full ">
         {!metaImage && <div className="">No image</div>}
         {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
-      </div>
+      </div> */}
       <div className="p-4">
-        {showCategories && hasCategories && (
+        {/* {showCategories && hasCategories && (
           <div className="uppercase text-sm mb-4">
             {showCategories && hasCategories && (
               <div>
@@ -67,7 +67,7 @@ export const Card: React.FC<{
               </div>
             )}
           </div>
-        )}
+        )} */}
         {titleToUse && (
           <div className="prose">
             <h3>
@@ -77,7 +77,7 @@ export const Card: React.FC<{
             </h3>
           </div>
         )}
-        {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>}
+        {/* {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>} */}
       </div>
     </article>
   )

@@ -16,6 +16,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    locations: Location;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -32,6 +33,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -672,6 +674,26 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: string;
+  title: string;
+  slug: string;
+  parkingList: {
+    parkingLocation: string;
+    parkingPhoto: string | Media;
+    parkingCovered: boolean;
+    parkingSecured: boolean;
+    parkingRates: boolean;
+    parkingRateFee?: string | null;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -724,8 +746,8 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'posts';
-    value: string | Post;
+    relationTo: 'locations';
+    value: string | Location;
   };
   slug?: string | null;
   meta?: {
@@ -861,6 +883,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: string | Location;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1218,6 +1244,27 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  parkingList?:
+    | T
+    | {
+        parkingLocation?: T;
+        parkingPhoto?: T;
+        parkingCovered?: T;
+        parkingSecured?: T;
+        parkingRates?: T;
+        parkingRateFee?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
