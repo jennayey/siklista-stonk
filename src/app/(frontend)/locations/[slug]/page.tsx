@@ -4,30 +4,17 @@ import React, { cache } from 'react'
 import type { Location as LocationType } from '@/payload-types'
 // import { RenderBlocks } from '@/utils/RenderBlocks'
 // import { generateMeta } from '@/utils/generateMeta'
+import configPromise from '@payload-config'
+
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
-import { PageProps } from '.next/types/app/(payload)/layout'
+// import { PageProps } from '.next/types/app/(payload)/layout'
 import Image from 'next/image'
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
-  const parsedSlug = decodeURIComponent(slug)
 
-  const payload = await getPayload({ config })
 
-  const result = await payload.find({
-    collection: 'locations',
-    limit: 1,
-    where: {
-      slug: {
-        equals: parsedSlug,
-      },
-    },
-  })
-
-  return result.docs?.[0] || null
-})
 
 export async function generateStaticParams() {  
-  const payload = await getPayload({ config })
+  const payload = await getPayload({ config: configPromise })
   const locations = await payload.find({
     collection: 'locations',
     draft: false,
@@ -38,25 +25,32 @@ export async function generateStaticParams() {
     },
   })
 
-  // return pages.docs
-  //   ?.filter((doc) => {
-  //     return doc.slug !== 'index'
-  //   })
-  //   .map(({ slug }) => slug)
+  const params = locations.docs.map(({ slug }) => {
+    return { slug }
+  })
 
-  return (
-    locations.docs
-      ?.filter((doc) => {
-        return doc.slug !== 'index'
-      })
-      .map((doc) => ({
-        slug: doc.slug,
-      })) || []
-  )
+  return params
+
+
+  // return (
+  //   locations.docs
+  //     ?.filter((doc) => {
+  //       return doc.slug !== 'index'
+  //     })
+  //     .map((doc) => ({
+  //       slug: doc.slug,
+  //     })) || []
+  // )
+  
+}
+type Args = {
+  params: Promise<{
+    slug?: string
+  }>
 }
 
-export default async function Page({ params }: PageProps) {
-  const resolvedParams = await Promise.resolve(params)
+export default async function LocationPage({ params: paramsPromise }: Args) {
+  const resolvedParams = await Promise.resolve(paramsPromise)
 
   const { slug = 'index' } = resolvedParams
 
@@ -71,7 +65,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <article className="pt-16 pb-24">
       <div>
-        <h1 className="text-4xl">{location.name}</h1>
+        <h1 className="text-4xl">{location.title}</h1>
         <h2>Available parking</h2>
         <p>{location.updatedAt}</p>
         <hr />
@@ -98,3 +92,21 @@ export default async function Page({ params }: PageProps) {
     </article>
   )
 }
+
+const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+  const parsedSlug = decodeURIComponent(slug)
+
+  const payload = await getPayload({ config })
+
+  const result = await payload.find({
+    collection: 'locations',
+    limit: 1,
+    where: {
+      slug: {
+        equals: parsedSlug,
+      },
+    },
+  })
+
+  return result.docs?.[0] || null
+})
