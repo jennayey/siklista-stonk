@@ -1,7 +1,7 @@
 {
   "name": "siklista-stonks",
   "version": "1.0.0",
-  "description": "Website template for Payload",
+  "description": "Siklista Website",
   "license": "MIT",
   "type": "module",
   "scripts": {
