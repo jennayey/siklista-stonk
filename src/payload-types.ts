@@ -679,6 +679,7 @@ export interface Form {
 export interface Location {
   id: string;
   title: string;
+  _status: 'draft' | 'published';
   slug: string;
   parkingList: {
     parkingLocation: string;
@@ -1251,6 +1252,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface LocationsSelect<T extends boolean = true> {
   title?: T;
+  _status?: T;
   slug?: T;
   parkingList?:
     | T

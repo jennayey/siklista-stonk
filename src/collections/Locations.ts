@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { authenticated } from '../access/authenticated'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
-export const Locations: CollectionConfig = {
+export const Locations: CollectionConfig<'locations'> = {
   defaultPopulate: {
     title: true,
   },
@@ -16,12 +16,24 @@ export const Locations: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
   },
+  
   fields: [
+   
     {
       name: 'title',
       label: 'Name of Establishment',
       type: 'text',
 
+      required: true,
+    },
+    {
+      name: '_status',
+      label: 'Status',
+      type: 'select',
+      options: [
+        { label: 'Draft', value: 'draft' },
+        { label: 'Published', value: 'published' },
+      ],
       required: true,
     },
     {
