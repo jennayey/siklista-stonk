@@ -5,7 +5,6 @@ import type { Location as LocationType } from '@/payload-types'
 // import { RenderBlocks } from '@/utils/RenderBlocks'
 // import { generateMeta } from '@/utils/generateMeta'
 import configPromise from '@payload-config'
-
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 // import { PageProps } from '.next/types/app/(payload)/layout'

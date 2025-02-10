@@ -1,11 +1,18 @@
 import type { CollectionConfig } from 'payload'
-
+import { authenticated } from '../access/authenticated'
+import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 export const Locations: CollectionConfig = {
   defaultPopulate: {
     title: true,
   },
 
   slug: 'locations',
+  access: {
+    create: authenticated,
+    delete: authenticated,
+    read: authenticatedOrPublished,
+    update: authenticated,
+  },
   admin: {
     useAsTitle: 'title',
   },
