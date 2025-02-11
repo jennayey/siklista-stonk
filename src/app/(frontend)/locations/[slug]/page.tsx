@@ -67,6 +67,8 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
         <h1 className="text-4xl">{location.title}</h1>
         <h2>Available parking</h2>
         <p>{location.updatedAt}</p>
+        <p>{location.foldingBikeFriendly ? 'Folding F' : 'Not friendly'}</p>
+
         <hr />
         <div>
           {location.parkingList.map((item, index) => {
@@ -80,8 +82,10 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
                   className="object-contain"
                 />
                 <h3 className="text-blue text-base">{item.parkingLocation}</h3>
-                <p className="text-white">{item.parkingCovered ? 'Covered' : 'Not Covered'}</p>
-                <p className="text-white">{item.parkingSecured ? 'Secured' : 'Not Secured'}</p>
+                <p className="text-base">{item.parkingCovered ? 'Covered' : 'Not Covered'}</p>
+                <p className="text-base">{item.parkingSecured ? 'Secured' : 'Not Secured'}</p>
+                <p className="text-base">{item.parkingRates ? item.parkingRateFee : 'Free'}</p>
+
                 <hr />
               </div>
             )

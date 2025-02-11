@@ -35,11 +35,23 @@ export const Locations: CollectionConfig<'locations'> = {
         { label: 'Published', value: 'published' },
       ],
       required: true,
+      admin: {
+        position: 'sidebar',
+      },
     },
     {
       name: 'slug',
       label: 'Slug',
       type: 'text',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'foldingBikeFriendly',
+      label: 'Is the Location Folding Bike Friendly? (Yes/No)',
+      type: 'checkbox',
       required: true,
       admin: {
         position: 'sidebar',
@@ -54,6 +66,12 @@ export const Locations: CollectionConfig<'locations'> = {
           name: 'parkingLocation',
           label: 'Name of Location',
           type: 'text',
+          required: true,
+        },
+        {
+          name: 'parkingDescription',
+          label: 'Description of Parking Location',
+          type: 'textarea',
           required: true,
         },
         {

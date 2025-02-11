@@ -222,6 +222,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  prefix?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -681,8 +682,10 @@ export interface Location {
   title: string;
   _status: 'draft' | 'published';
   slug: string;
+  foldingBikeFriendly: boolean;
   parkingList: {
     parkingLocation: string;
+    parkingDescription: string;
     parkingPhoto: string | Media;
     parkingCovered: boolean;
     parkingSecured: boolean;
@@ -1124,6 +1127,7 @@ export interface PostsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  prefix?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1254,10 +1258,12 @@ export interface LocationsSelect<T extends boolean = true> {
   title?: T;
   _status?: T;
   slug?: T;
+  foldingBikeFriendly?: T;
   parkingList?:
     | T
     | {
         parkingLocation?: T;
+        parkingDescription?: T;
         parkingPhoto?: T;
         parkingCovered?: T;
         parkingSecured?: T;
