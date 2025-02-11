@@ -56,6 +56,11 @@ const config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        bone: 'hsl(var(--bone))',
+        night: 'hsl(var(--night))',
+        slime: 'hsl(var(--slime))',
+        ube: 'hsl(var(--ube))',
+        
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
