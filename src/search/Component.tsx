@@ -27,6 +27,7 @@ export const Search: React.FC = () => {
         </Label>
         <Input
           id="search"
+          className='bg-bone border border-night rounded-xl px-4 py-6 lg:py-8 w-full texd-md lg:text-lg'
           onChange={(event) => {
             setValue(event.target.value)
           }}

@@ -25,7 +25,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
-  const locations = await payload.find({
+  const location = await payload.find({
     collection: 'locations',
     depth: 1,
     limit: 12,
@@ -36,26 +36,28 @@ export default async function Page({ params: paramsPromise }: Args) {
   return (
     <div className="pt-24 pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Locations with Bike Parking</h1>
+      <div className="bg-night h-[300px] lg:h-[400px] w-full">
+        <div className="max-w-2xl lg:max-w-4xl mx-auto px-8 py-16 lg:pb-20 h-full flex items-end">
+          <h2 className="text-4xl md:text-5xl font-semibold text-slime">
+            Locations with Bike Parking
+          </h2>
         </div>
       </div>
 
-      <div className="container mb-8">
+      <div className="max-w-4xl mx-4 lg:mx-auto my-8">
         <PageRange
+          className="px-4 md:px-8 mb-8"
           collection="locations"
-          currentPage={locations.page}
+          currentPage={location.page}
           limit={12}
-          totalDocs={locations.totalDocs}
+          totalDocs={location.totalDocs}
         />
+        <LocationArchive locations={location.docs} />
       </div>
 
-      <LocationArchive locations={locations.docs} />
-
       <div className="container">
-        {locations?.page && locations?.totalPages > 1 && (
-          <Pagination page={locations.page} totalPages={locations.totalPages} />
+        {location?.page && location?.totalPages > 1 && (
+          <Pagination page={location.page} totalPages={location.totalPages} />
         )}
       </div>
     </div>
@@ -65,7 +67,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
-    title: `Payload Website Template Posts Page ${pageNumber || ''}`,
+    title: `Bike Parking Locations ${pageNumber || ''}`,
   }
 }
 

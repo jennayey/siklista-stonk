@@ -48,29 +48,31 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   })
 
   return (
-    <div className="pt-24 pb-24">
+    <div className="pb-24">
       <PageClient />
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
-
-          <div className="max-w-[50rem] mx-auto">
+      <div className="bg-night h-[300px] lg:h-[400px] w-full">
+        <div className="max-w-2xl lg:max-w-4xl mx-auto px-4 lg:px-8 pt-16 pb-8 lg:pb-12 h-full flex flex-col justify-end">
+          <h2 className="text-4xl md:text-5xl font-semibold text-slime">Search for Bike Parking</h2>
+          <div className="w-full mt-8">
             <Search />
           </div>
         </div>
       </div>
 
-      {locations.totalDocs > 0 ? (
-        <LocationArchive locations={locations.docs as CardPostData[]} />
-      ) : (
-        <div className="container">No results found.</div>
-      )}
+      <div className="max-w-4xl mx-4 lg:mx-auto my-8">
+        <h4 className="text-xl font-semibold text-night mb-8">Search results</h4>
+        {locations.totalDocs > 0 ? (
+          <LocationArchive locations={locations.docs as CardPostData[]} />
+        ) : (
+          <div className="mx-auto">Oops. No matching results. Maybe try another place?</div>
+        )}
+      </div>
     </div>
   )
 }
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Search`,
+    title: `Siklista Resource Search`,
   }
 }
