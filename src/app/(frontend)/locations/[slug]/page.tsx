@@ -10,7 +10,7 @@ import { getPayload } from 'payload'
 import Image from 'next/image'
 
 export const dynamic = 'force-static'
-export const revalidate = 60
+export const revalidate = 600
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
