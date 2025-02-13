@@ -1,6 +1,8 @@
 import React, { cache } from 'react'
 import { Button } from '@/components/ui/button'
 import type { Location as LocationType } from '@/payload-types'
+import { formatDateTime } from 'src/utilities/formatDateTime'
+
 // import { RenderBlocks } from '@/utils/RenderBlocks'
 // import { generateMeta } from '@/utils/generateMeta'
 import configPromise from '@payload-config'
@@ -70,7 +72,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
         <div className="flex flex-col md:flex-row gap-4 md:gap-12 flex-1">
           <div>
             <p className="text-sm text-gray-600 mb-[2px]">Last updated</p>
-            <p className="text-md font-semibold text-night">{location.updatedAt}</p>
+            <p className="text-md font-semibold text-night">{formatDateTime(location.updatedAt)}</p>
           </div>
           <div>
             <p className="text-sm text-gray-600 mb-[2px]">Category</p>
