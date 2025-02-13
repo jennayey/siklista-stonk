@@ -7,7 +7,7 @@ import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
-import { Search } from '@/search/Component'
+// import { Search } from '@/search/Component'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
