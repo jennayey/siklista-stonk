@@ -9,6 +9,9 @@ import { getPayload } from 'payload'
 // import { PageProps } from '.next/types/app/(payload)/layout'
 import Image from 'next/image'
 
+export const dynamic = 'force-static'
+export const revalidate = 60
+
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const locations = await payload.find({
