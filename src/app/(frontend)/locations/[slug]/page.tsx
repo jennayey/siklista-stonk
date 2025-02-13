@@ -10,7 +10,7 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 // import { PageProps } from '.next/types/app/(payload)/layout'
 import Image from 'next/image'
-
+import Link from 'next/link'
 export const dynamic = 'force-static'
 export const revalidate = 600
 
@@ -74,18 +74,18 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
             <p className="text-sm text-gray-600 mb-[2px]">Last updated</p>
             <p className="text-md font-semibold text-night">{formatDateTime(location.updatedAt)}</p>
           </div>
-          <div>
+          {/* <div>
             <p className="text-sm text-gray-600 mb-[2px]">Category</p>
             <p className="text-md font-semibold text-night">Malls</p>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex flex-row gap-4">
-          <Button variant="outline" size="default">
+          {/* <Button variant="outline" size="default">
             Outdated info
-          </Button>
+          </Button> */}
           <Button variant="default" size="default">
-            Contribute
+          <Link href='/'>Contribute</Link>
           </Button>
         </div>
       </div>
