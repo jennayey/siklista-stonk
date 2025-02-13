@@ -1,4 +1,3 @@
-import config from '@payload-config'
 import React, { cache } from 'react'
 import { Button } from '@/components/ui/button'
 import type { Location as LocationType } from '@/payload-types'
@@ -16,7 +15,7 @@ export async function generateStaticParams() {
     collection: 'locations',
     draft: false,
     limit: 1000,
-
+    overrideAccess: false,
     select: {
       slug: true,
     },
@@ -179,7 +178,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
 const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
   const parsedSlug = decodeURIComponent(slug)
 
-  const payload = await getPayload({ config })
+  const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
     collection: 'locations',
