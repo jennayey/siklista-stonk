@@ -70,11 +70,11 @@ export const CardLocation: React.FC<{
         )} */}
         {titleToUse && (
           <div className="prose">
-            <h3>
+            <h4>
               <Link className="not-prose" href={href} ref={link.ref}>
                 {titleToUse}
               </Link>
-            </h3>
+            </h4>
           </div>
         )}
         {/* {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>} */}

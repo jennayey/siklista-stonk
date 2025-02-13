@@ -64,11 +64,11 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
   return (
     <article>
       <div className="bg-night h-[300px] lg:h-[400px] w-full">
-        <div className="max-w-2xl lg:max-w-4xl mx-auto px-8 py-16 lg:pb-20 h-full flex items-end">
+        <div className="max-w-4xl lg:max-w-7xl mx-auto px-8 py-16 lg:pb-20 h-full flex items-end">
           <h2 className="text-4xl md:text-5xl font-semibold text-slime">{location.title}</h2>
         </div>
       </div>
-      <div className="max-w-2xl lg:max-w-4xl mx-4 md:mx-auto px-4 md:px-8 py-5 bg-bone rounded-xl border border-night flex flex-col lg:flex-row justify-between gap-6 -translate-y-8 lg:items-center">
+      <div className="max-w-5xl lg:max-w-7xl mx-4 md:mx-auto px-4 md:px-8 py-5 bg-bone rounded-xl border border-night flex flex-col lg:flex-row justify-between gap-6 -translate-y-8 lg:items-center">
         <div className="flex flex-col md:flex-row gap-4 md:gap-12 flex-1">
           <div>
             <p className="text-sm text-gray-600 mb-[2px]">Last updated</p>
@@ -89,9 +89,9 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
           </Button>
         </div>
       </div>
-      <div className="max-w-4xl mx-4 lg:mx-auto mt-8 pb-16">
+      <div className="max-w-7xl mx-4 lg:mx-auto mt-8 pb-16">
         <h4 className="text-xl font-semibold text-night mb-8">Parking Locations</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {location.parkingList.map((item, index) => {
             return (
               <div className="rounded-xl border border-night overflow-clip" key={index}>

@@ -32,14 +32,14 @@ export default async function Page() {
     <div className="pb-24">
       <PageClient />
       <div className="bg-night h-[300px] lg:h-[400px] w-full">
-        <div className="max-w-2xl lg:max-w-4xl mx-auto px-4 lg:px-8 pt-16 pb-8 lg:pb-20 h-full flex items-end">
+        <div className="max-w-4xl lg:max-w-7xl mx-auto px-4 lg:px-8 pt-16 pb-8 lg:pb-20 h-full flex items-end">
           <h2 className="text-4xl md:text-5xl font-semibold text-slime">
             Locations with Bike Parking
           </h2>
         </div>
       </div>
 
-      <div className="max-w-4xl mx-4 lg:mx-auto my-8">
+      <div className="max-w-7xl mx-4 lg:mx-auto my-8">
         <PageRange
           className="px-4 md:px-8 mb-8"
           collection="locations"
