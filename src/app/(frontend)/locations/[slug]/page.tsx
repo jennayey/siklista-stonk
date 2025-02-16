@@ -81,11 +81,11 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
         </div>
 
         <div className="flex flex-row gap-4">
-          {/* <Button variant="outline" size="default">
-            Outdated info
-          </Button> */}
+          {/* 
+          
+          */}
           <Button variant="default" size="default">
-          <Link href='/'>Contribute</Link>
+            <Link href="/">Contribute</Link>
           </Button>
         </div>
       </div>
