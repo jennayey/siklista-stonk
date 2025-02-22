@@ -39,9 +39,9 @@ export const Locations: CollectionConfig<'locations'> = {
       },
     },
     {
-      name: 'City',
+      name: 'city',
       type: 'relationship',
-      hasMany: true,
+      hasMany: false,
       relationTo: 'cities',
       required: true,
       admin: {

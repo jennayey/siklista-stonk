@@ -10,43 +10,93 @@ import { CardPostData } from '@/components/CardLocation'
 
 type Args = {
   searchParams: Promise<{
-    q: string
+    q: string,
+    city: string
   }>
 }
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
-  const { q: query } = await searchParamsPromise
+  const {  q: query, city } = await searchParamsPromise
+
   const payload = await getPayload({ config: configPromise })
 
-  const locations = await payload.find({
-    collection: 'search',
-    depth: 1,
-    limit: 12,
-    select: {
-      title: true,
-      slug: true,
-    },
-    // pagination: false reduces overhead if you don't need totalDocs
-    pagination: false,
-    ...(query
-      ? {
-          where: {
-            or: [
-              {
-                title: {
-                  like: query,
-                },
-              },
-              {
-                slug: {
-                  like: query,
-                },
-              },
-            ],
-          },
-        }
-      : {}),
-  })
+  const searchConditions = []
 
+  if (query) {
+    searchConditions.push(
+      {
+        title: {
+          like: query,
+        },
+      },
+      {
+        slug: {
+          like: query,
+        },
+      },
+    )
+  }
+
+  if (city) {
+    searchConditions.push({
+      'city.title': {
+        equals: city,
+      },
+    })
+  }
+
+  // const locations = await payload.find({
+  //   collection: 'search',
+  //   depth: 1,
+  //   limit: 12,
+  //   select: {
+  //     title: true,
+  //     slug: true,
+  //   },
+  //   // pagination: false reduces overhead if you don't need totalDocs
+  //   pagination: false,
+  //   ...(query
+  //     ? {
+  //         where: {
+  //           or: [
+  //             {
+  //               title: {
+  //                 like: query,
+  //               },
+  //             },
+  //             {
+  //               slug: {
+  //                 like: query,
+  //               },
+  //             },
+  //             {
+  //               city: {
+  //                 equals: city,
+  //               },
+  //             },
+  //           ],
+  //         },
+  //       }
+  //     : {}),
+  //    } 
+  //   )
+
+    const locations = await payload.find({
+      collection: 'search', // Ensure this is the correct collection name
+      depth: 1,
+      limit: 12,
+      select: {
+        title: true,
+        slug: true,
+      },
+      pagination: false,
+      ...(searchConditions.length > 0
+        ? {
+            where: {
+              or: searchConditions,
+            },
+          }
+        : {}),
+    })
   return (
     <div className="pb-24">
       <PageClient />

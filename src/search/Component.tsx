@@ -7,14 +7,22 @@ import { useRouter } from 'next/navigation'
 
 export const Search: React.FC = () => {
   const [value, setValue] = useState('')
+  const [city, setCity] = useState('')
   const router = useRouter()
 
   const debouncedValue = useDebounce(value)
+  const debouncedCity = useDebounce(city)
 
+
+  // useEffect(() => {
+  //   router.push(`/search${debouncedValue ? `?q=${debouncedValue}` : ''}`)
+  // }, [debouncedValue, debouncedCategory, router])
   useEffect(() => {
-    router.push(`/search${debouncedValue ? `?q=${debouncedValue}` : ''}`)
-  }, [debouncedValue, router])
-
+    const query = new URLSearchParams()
+    if (debouncedValue) query.set('q', debouncedValue)
+    if (debouncedCity) query.set('city', debouncedCity)
+    router.push(`/search?${query.toString()}`)
+  }, [debouncedValue, debouncedCity, router])
   return (
     <div>
       <form
@@ -33,6 +41,14 @@ export const Search: React.FC = () => {
           }}
           placeholder="Search"
         />
+           <Input
+          id="search"
+          className='bg-bone border border-night rounded-xl px-4 py-6 lg:py-8 w-full texd-md lg:text-lg'
+          onChange={(event) => {
+            setCity(event.target.value)
+          }}
+          placeholder="City"
+        />
         <button type="submit" className="sr-only">
           submit
         </button>
@@ -40,3 +56,4 @@ export const Search: React.FC = () => {
     </div>
   )
 }
+ 

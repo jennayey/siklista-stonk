@@ -683,7 +683,7 @@ export interface Location {
   id: string;
   title: string;
   _status: 'draft' | 'published';
-  City: (string | City)[];
+  city: string | City;
   slug: string;
   foldingBikeFriendly: boolean;
   parkingList: {
@@ -769,18 +769,12 @@ export interface Search {
     value: string | Location;
   };
   slug?: string | null;
+  city?: (string | null) | City;
   meta?: {
     title?: string | null;
     description?: string | null;
     image?: (string | null) | Media;
   };
-  categories?:
-    | {
-        relationTo?: string | null;
-        id?: string | null;
-        title?: string | null;
-      }[]
-    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1276,7 +1270,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface LocationsSelect<T extends boolean = true> {
   title?: T;
   _status?: T;
-  City?: T;
+  city?: T;
   slug?: T;
   foldingBikeFriendly?: T;
   parkingList?:
@@ -1478,19 +1472,13 @@ export interface SearchSelect<T extends boolean = true> {
   priority?: T;
   doc?: T;
   slug?: T;
+  city?: T;
   meta?:
     | T
     | {
         title?: T;
         description?: T;
         image?: T;
-      };
-  categories?:
-    | T
-    | {
-        relationTo?: T;
-        id?: T;
-        title?: T;
       };
   updatedAt?: T;
   createdAt?: T;
