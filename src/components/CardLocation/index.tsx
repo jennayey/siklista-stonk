@@ -8,7 +8,7 @@ import type { Location } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
-export type CardPostData = Pick<Location, 'slug' | 'title'>
+export type CardPostData = Pick<Location, 'slug' | 'title' | 'city' >
 
 export const CardLocation: React.FC<{
   alignItems?: 'center'
@@ -21,14 +21,15 @@ export const CardLocation: React.FC<{
   const { card, link } = useClickableCard({})
   const { className, doc, relationTo, title: titleFromProps } = props
 
-  const { slug, title } = doc || {}
-  // const { description, image: metaImage } = meta || {}
+  const { slug, title, city} = doc || {}
+  // const { } = city || {}
 
   // const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
+  const titleCity = typeof city === "object" ? city.title : city
   // const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/${relationTo}/${slug}`
-
+console.log(doc)
   return (
     <article
       className={cn(
@@ -77,6 +78,7 @@ export const CardLocation: React.FC<{
             </h4>
           </div>
         )}
+        {titleCity}
         {/* {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>} */}
       </div>
     </article>

@@ -10,25 +10,23 @@ import { CardPostData } from '@/components/CardLocation'
 
 type Args = {
   searchParams: Promise<{
-    q: string,
+    q: string
     city: string
   }>
 }
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
-  const {  q: query, city } = await searchParamsPromise
+  const { q: query, city } = await searchParamsPromise
 
   const payload = await getPayload({ config: configPromise })
 
   const searchConditions = []
 
   if (query) {
-    searchConditions.push(
-      {
-        title: {
-          like: query,
-        },
+    searchConditions.push({
+      title: {
+        like: query,
       },
-    )
+    })
   }
 
   if (city) {
@@ -72,26 +70,27 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   //         },
   //       }
   //     : {}),
-  //    } 
+  //    }
   //   )
 
-    const locations = await payload.find({
-      collection: 'search', // Ensure this is the correct collection name
-      depth: 1,
-      limit: 12,
-      select: {
-        title: true,
-        slug: true,
-      },
-      pagination: false,
-      ...(searchConditions.length > 0
-        ? {
-            where: {
-              and: searchConditions,
-            },
-          }
-        : {}),
-    })
+  const locations = await payload.find({
+    collection: 'search', // Ensure this is the correct collection name
+    depth: 1,
+    limit: 12,
+    select: {
+      title: true,
+      slug: true,
+      city: true,
+    },
+    pagination: false,
+    ...(searchConditions.length > 0
+      ? {
+          where: {
+            and: searchConditions,
+          },
+        }
+      : {}),
+  })
   return (
     <div className="pb-24">
       <PageClient />

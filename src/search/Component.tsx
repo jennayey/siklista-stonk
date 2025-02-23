@@ -17,21 +17,7 @@ import { Label } from '@/components/ui/label'
 import React, { useState, useEffect } from 'react'
 import { useDebounce } from '@/utilities/useDebounce'
 import { useRouter } from 'next/navigation'
-
-const cities = [
-  {
-    value: 'Pasig',
-    label: 'Pasig',
-  },
-  {
-    value: 'Quezon City',
-    label: 'Quezon City',
-  },
-  {
-    value: 'Mandaluyong',
-    label: 'Mandaluyong',
-  },
-]
+import { cities } from './cities'
 
 export const Search: React.FC = () => {
   const [value, setValue] = useState('')
@@ -54,34 +40,38 @@ export const Search: React.FC = () => {
   return (
     <div>
       <form
+      className='grid grid-cols-1 md:grid-cols-2 gap-4'
         onSubmit={(e) => {
           e.preventDefault()
         }}
       >
-        <Label htmlFor="search" className="sr-only">
-          Search
-        </Label>
-        <Input
-          id="search"
-          className="bg-bone border border-night rounded-xl px-4 py-6 lg:py-8 w-full texd-md lg:text-lg"
-          onChange={(event) => {
-            setValue(event.target.value)
-          }}
-          placeholder="Search"
-        />
+        {/* input Field */}
+        <div>
+          <Label htmlFor="search" className="sr-only">
+            Search
+          </Label>
+          <Input
+            id="search"
+            className="bg-bone border border-night rounded-xl px-4 py-6 lg:py-8 w-full texd-md lg:text-lg"
+            onChange={(event) => {
+              setValue(event.target.value)
+            }}
+            placeholder="Search"
+          />
+        </div>
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger asChild >
             <Button
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[200px] justify-between"
+              className="w-full justify-between"
             >
               {city ? cities.find((cities) => cities.value === city)?.label : 'Select cities...'}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[200px] p-0">
+          <PopoverContent className="w-[300px] p-0">
             <Command>
               <CommandInput placeholder="Search cities..." />
               <CommandList>
@@ -103,7 +93,6 @@ export const Search: React.FC = () => {
                         )}
                       />{' '}
                       {cities.label}
-
                     </CommandItem>
                   ))}
                 </CommandGroup>
