@@ -5,8 +5,6 @@ export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc 
     doc: { relationTo: collection },
   } = searchDoc
 
-  
-
   const { slug, id, categories, title, meta, city } = originalDoc
   console.log('City field in originalDoc:', city)
 

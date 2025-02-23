@@ -684,7 +684,8 @@ export interface Location {
   title: string;
   _status: 'draft' | 'published';
   city: string | City;
-  slug: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
   foldingBikeFriendly: boolean;
   parkingList: {
     parkingLocation: string;
@@ -1272,6 +1273,7 @@ export interface LocationsSelect<T extends boolean = true> {
   _status?: T;
   city?: T;
   slug?: T;
+  slugLock?: T;
   foldingBikeFriendly?: T;
   parkingList?:
     | T

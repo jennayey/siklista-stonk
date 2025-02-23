@@ -28,11 +28,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
           like: query,
         },
       },
-      {
-        slug: {
-          like: query,
-        },
-      },
     )
   }
 
@@ -92,7 +87,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       ...(searchConditions.length > 0
         ? {
             where: {
-              or: searchConditions,
+              and: searchConditions,
             },
           }
         : {}),

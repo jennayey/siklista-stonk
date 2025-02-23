@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { slugField } from '@/fields/slug'
+
 export const Locations: CollectionConfig<'locations'> = {
   defaultPopulate: {
     title: true,
@@ -48,15 +50,8 @@ export const Locations: CollectionConfig<'locations'> = {
         position: 'sidebar',
       },
     },
-    {
-      name: 'slug',
-      label: 'Slug',
-      type: 'text',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
+       ...slugField(),
+   
     {
       name: 'foldingBikeFriendly',
       label: 'Is the Location Folding Bike Friendly? (Yes/No)',
