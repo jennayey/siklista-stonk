@@ -58,9 +58,10 @@ const config = {
       colors: {
         bone: 'hsl(var(--bone))',
         night: 'hsl(var(--night))',
-        slime: 'hsl(var(--slime))',
         ube: 'hsl(var(--ube))',
-        
+        slime: {
+          DEFAULT: 'hsl(var(--slime))',
+        },
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',

@@ -8,6 +8,7 @@ import { formatDateTime } from 'src/utilities/formatDateTime'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
+import { Badge } from '@/components/ui/badge'
 // import { PageProps } from '.next/types/app/(payload)/layout'
 import { Hero } from '@/components/Hero'
 import Image from 'next/image'
@@ -64,6 +65,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
 
   const city = location.city
   const titleCity = typeof city === 'object' ? city.title : city
+  const placeType = typeof location.placeType === 'object' ? location.placeType.title : location.placeType
 
   return (
     <article className='pb-24'>
@@ -77,6 +79,10 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
           <div>
             <p className="text-sm text-gray-600 mb-[2px]">Location</p>
             <p className="text-md font-semibold text-night">{titleCity}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-600 mb-[2px]">Category</p>
+            <Badge>{placeType}</Badge>
           </div>
         </div>
 
@@ -100,6 +106,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
                 <div className="h-[200px] w-full relative">
                   <Image
                     className="object-cover"
+                    // placeholder='blur'
                     src={typeof item.parkingPhoto === 'string' ? ' ' : item.parkingPhoto?.url || ''}
                     fill
                     sizes="100vw"
