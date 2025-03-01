@@ -7,8 +7,8 @@ import React, { Fragment } from 'react'
 import type { Location } from '@/payload-types'
 
 import { Media } from '@/components/Media'
-
-export type CardPostData = Pick<Location, 'slug' | 'title' | 'city' >
+import { Badge } from '@/components/ui/badge'
+export type CardPostData = Pick<Location, 'slug' | 'title' | 'city' | 'placeType'>
 
 export const CardLocation: React.FC<{
   alignItems?: 'center'
@@ -21,19 +21,21 @@ export const CardLocation: React.FC<{
   const { card, link } = useClickableCard({})
   const { className, doc, relationTo, title: titleFromProps } = props
 
-  const { slug, title, city} = doc || {}
+  const { slug, title, city, placeType } = doc || {}
   // const { } = city || {}
 
   // const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
-  const titleCity = typeof city === "object" ? city.title : city
+  const titleCity = typeof city === 'object' ? city.title : city
+  const titlePlaceType = typeof placeType === 'object' ? placeType.title : placeType
+
   // const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/${relationTo}/${slug}`
-console.log(doc)
+  console.log(doc)
   return (
     <article
       className={cn(
-        'border border-night rounded-xl overflow-hidden bg-card hover:cursor-pointer',
+        'border border-night rounded-xl overflow-hidden bg-slate-50 hover:cursor-pointer',
         className,
       )}
       ref={card.ref}
@@ -69,16 +71,17 @@ console.log(doc)
             )}
           </div>
         )} */}
+        <Badge className="mb-4">{titlePlaceType}</Badge>
         {titleToUse && (
-          <div className="prose">
-            <h4>
+          <div className="prose mb-1">
+            <h4 className="text-lg font-semibold">
               <Link className="not-prose" href={href} ref={link.ref}>
                 {titleToUse}
               </Link>
             </h4>
           </div>
         )}
-        {titleCity}
+        <p className="text-slate-600 text-sm font-medium">{titleCity}</p>
         {/* {description && <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>} */}
       </div>
     </article>

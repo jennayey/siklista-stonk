@@ -20,6 +20,16 @@ export const searchFields: Field[] = [
     },
   },
   {
+    name: 'placeType',
+    label: 'Place Type',
+    type: 'relationship',
+    relationTo: 'place-categories',
+    index: true,
+    admin: {
+      readOnly: true,
+    },
+  },
+  {
     name: 'meta',
     label: 'Meta',
     type: 'group',

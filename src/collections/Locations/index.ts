@@ -41,6 +41,16 @@ export const Locations: CollectionConfig<'locations'> = {
       },
     },
     {
+      name: 'placeType',
+      type: 'relationship',
+      hasMany: false,
+      relationTo: 'place-categories',
+      required: true,
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'city',
       type: 'relationship',
       hasMany: false,

@@ -5,7 +5,7 @@ export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc 
     doc: { relationTo: collection },
   } = searchDoc
 
-  const { slug, id, categories, title, meta, city } = originalDoc
+  const { slug, id, categories, title, meta, city, placeType} = originalDoc
   console.log('City field in originalDoc:', city)
 
   const modifiedDoc: DocToSync = {
@@ -19,6 +19,8 @@ export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc 
     },
     categories: [],
     city: city ? { id: city.id, title: city.title } : undefined, // Include the city field with id and title
+    placeType: placeType ? { id: placeType.id, title: placeType.title } : undefined, // Include the city field with id and title
+
   }
 
   if (categories && Array.isArray(categories) && categories.length > 0) {

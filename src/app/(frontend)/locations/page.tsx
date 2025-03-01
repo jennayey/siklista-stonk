@@ -25,6 +25,7 @@ export default async function Page() {
       title: true,
       slug: true,
       city: true,
+      placeType: true,
       // categories: true,
       // meta: true,
     },

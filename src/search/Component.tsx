@@ -46,7 +46,7 @@ export const Search: React.FC = () => {
         }}
       >
         {/* input Field */}
-        <div className='col-span-2'>
+        <div className='col-span-1 md:col-span-2'>
           <Label htmlFor="search" className="sr-only">
             Search
           </Label>
@@ -65,13 +65,13 @@ export const Search: React.FC = () => {
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-[300px] bg-bone border border-night rounded-xl px-4 py-6 justify-between  texd-md"
+              className="w-full lg:w-[300px] bg-bone border border-night rounded-xl px-4 py-6 justify-between  texd-md"
             >
               {city ? cities.find((cities) => cities.value === city)?.label : 'Select cities...'}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[300px] p-0 rounded-xl border border-night overflow-clip">
+          <PopoverContent className="w-full lg:w-[300px] p-0 rounded-xl border border-night overflow-clip">
             <Command>
               <CommandInput placeholder="Search cities..." />
               <CommandList>

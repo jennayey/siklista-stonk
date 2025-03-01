@@ -81,6 +81,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       title: true,
       slug: true,
       city: true,
+      placeType: true,
     },
     pagination: false,
     ...(searchConditions.length > 0

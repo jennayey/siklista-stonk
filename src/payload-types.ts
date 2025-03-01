@@ -18,6 +18,7 @@ export interface Config {
     users: User;
     locations: Location;
     cities: City;
+    'place-categories': PlaceCategory;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -36,6 +37,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     locations: LocationsSelect<false> | LocationsSelect<true>;
     cities: CitiesSelect<false> | CitiesSelect<true>;
+    'place-categories': PlaceCategoriesSelect<false> | PlaceCategoriesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -683,6 +685,7 @@ export interface Location {
   id: string;
   title: string;
   _status: 'draft' | 'published';
+  placeType: string | PlaceCategory;
   city: string | City;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -697,6 +700,18 @@ export interface Location {
     parkingRateFee?: string | null;
     id?: string | null;
   }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "place-categories".
+ */
+export interface PlaceCategory {
+  id: string;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -771,6 +786,7 @@ export interface Search {
   };
   slug?: string | null;
   city?: (string | null) | City;
+  placeType?: (string | null) | PlaceCategory;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -905,6 +921,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'cities';
         value: string | City;
+      } | null)
+    | ({
+        relationTo: 'place-categories';
+        value: string | PlaceCategory;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1271,6 +1291,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface LocationsSelect<T extends boolean = true> {
   title?: T;
   _status?: T;
+  placeType?: T;
   city?: T;
   slug?: T;
   slugLock?: T;
@@ -1295,6 +1316,17 @@ export interface LocationsSelect<T extends boolean = true> {
  * via the `definition` "cities_select".
  */
 export interface CitiesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "place-categories_select".
+ */
+export interface PlaceCategoriesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
@@ -1475,6 +1507,7 @@ export interface SearchSelect<T extends boolean = true> {
   doc?: T;
   slug?: T;
   city?: T;
+  placeType?: T;
   meta?:
     | T
     | {
