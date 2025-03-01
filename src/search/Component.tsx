@@ -38,21 +38,21 @@ export const Search: React.FC = () => {
     router.push(`/search?${query.toString()}`)
   }, [debouncedValue, debouncedCity, router])
   return (
-    <div>
+    <div className='mx-auto'>
       <form
-      className='grid grid-cols-1 md:grid-cols-2 gap-4'
+        className="grid grid-cols-1 md:grid-cols-3 gap-4"
         onSubmit={(e) => {
           e.preventDefault()
         }}
       >
         {/* input Field */}
-        <div>
+        <div className='col-span-2'>
           <Label htmlFor="search" className="sr-only">
             Search
           </Label>
           <Input
             id="search"
-            className="bg-bone border border-night rounded-xl px-4 py-6 lg:py-8 w-full texd-md lg:text-lg"
+            className="bg-bone border border-night rounded-xl px-4 py-6 w-full texd-md"
             onChange={(event) => {
               setValue(event.target.value)
             }}
@@ -60,18 +60,18 @@ export const Search: React.FC = () => {
           />
         </div>
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild >
+          <PopoverTrigger asChild>
             <Button
               variant="outline"
               role="combobox"
               aria-expanded={open}
-              className="w-full justify-between"
+              className="w-[300px] bg-bone border border-night rounded-xl px-4 py-6 justify-between  texd-md"
             >
               {city ? cities.find((cities) => cities.value === city)?.label : 'Select cities...'}
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[300px] p-0">
+          <PopoverContent className="w-[300px] p-0 rounded-xl border border-night overflow-clip">
             <Command>
               <CommandInput placeholder="Search cities..." />
               <CommandList>

@@ -9,6 +9,7 @@ import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 // import { PageProps } from '.next/types/app/(payload)/layout'
+import { Hero } from '@/components/Hero'
 import Image from 'next/image'
 import Link from 'next/link'
 export const dynamic = 'force-static'
@@ -61,23 +62,22 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
     return notFound()
   }
 
+  const city = location.city
+  const titleCity = typeof city === 'object' ? city.title : city
+
   return (
-    <article>
-      <div className="bg-night h-[300px] lg:h-[400px] w-full">
-        <div className="max-w-4xl lg:max-w-7xl mx-auto px-8 py-16 lg:pb-20 h-full flex items-end">
-          <h2 className="text-4xl md:text-5xl font-semibold text-slime">{location.title}</h2>
-        </div>
-      </div>
-      <div className="max-w-5xl lg:max-w-7xl mx-4 md:mx-auto px-4 md:px-8 py-5 bg-bone rounded-xl border border-night flex flex-col lg:flex-row justify-between gap-6 -translate-y-8 lg:items-center">
+    <article className='pb-24'>
+      <Hero title={location.title}></Hero>
+      <div className="container bg-bone rounded-xl border border-night py-4 flex flex-col lg:flex-row justify-between gap-6 -translate-y-8 lg:items-center">
         <div className="flex flex-col md:flex-row gap-4 md:gap-12 flex-1">
           <div>
             <p className="text-sm text-gray-600 mb-[2px]">Last updated</p>
             <p className="text-md font-semibold text-night">{formatDateTime(location.updatedAt)}</p>
           </div>
-          {/* <div>
-            <p className="text-sm text-gray-600 mb-[2px]">Category</p>
-            <p className="text-md font-semibold text-night">Malls</p>
-          </div> */}
+          <div>
+            <p className="text-sm text-gray-600 mb-[2px]">Location</p>
+            <p className="text-md font-semibold text-night">{titleCity}</p>
+          </div>
         </div>
 
         <div className="flex flex-row gap-4">
@@ -89,8 +89,10 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
           </Button>
         </div>
       </div>
-      <div className="max-w-7xl mx-4 lg:mx-auto mt-8 pb-16">
-        <h4 className="text-xl font-semibold text-night mb-8">Parking Locations</h4>
+      <div className="container">
+        <h4 className="text-xl font-semibold text-night mb-8">
+          {location.parkingList.length} Parking Locations
+        </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {location.parkingList.map((item, index) => {
             return (
@@ -128,7 +130,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
                         Secured
                       </p>
                       <p className="text-sm font-medium text-night text-center">
-                        {item.parkingSecured ? 'Yes' : 'Not Secured'}
+                        {item.parkingSecured ? '✅' : '❌'}
                       </p>
                     </div>
                     <div>

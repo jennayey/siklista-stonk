@@ -13,16 +13,15 @@ export const LocationArchive: React.FC<Props> = (props) => {
   return (
     <div className='w-full'>
       <div>
-        <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-6 lg:gap-x-6 xl:gap-x-6">
+        <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-6 lg:gap-x-6 xl:gap-x-6">
           {locations?.map((result, index) => {
             if (typeof result === 'object' && result !== null) {
               return (
-                <div className="col-span-3" key={index}>
+                <div className="col-span-4 xl:col-span-3" key={index}>
                   <CardLocation className="h-full" doc={result} relationTo="locations" showCategories />
                 </div>
               )
             }
-
             return null
           })}
         </div>

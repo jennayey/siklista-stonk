@@ -8,7 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 import { notFound } from 'next/navigation'
-
+import { Hero } from '@/components/Hero'
 export const revalidate = 600
 
 type Args = {
@@ -36,17 +36,10 @@ export default async function Page({ params: paramsPromise }: Args) {
   return (
     <div className="pt-24 pb-24">
       <PageClient />
-      <div className="bg-night h-[300px] lg:h-[400px] w-full">
-        <div className="max-w-4xl lg:max-w-7xl mx-auto px-8 py-16 lg:pb-20 h-full flex items-end">
-          <h2 className="text-4xl md:text-5xl font-semibold text-slime">
-            Locations with Bike Parking
-          </h2>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-4 lg:mx-auto my-8">
+      <Hero title="Locations with bike parking"/>
+      <div className="container pt-8">
         <PageRange
-          className="px-4 md:px-8 mb-8"
+          className="mb-8"
           collection="locations"
           currentPage={location.page}
           limit={12}

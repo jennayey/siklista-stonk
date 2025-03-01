@@ -94,16 +94,19 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   return (
     <div className="pb-24">
       <PageClient />
-      <div className="bg-night h-[300px] lg:h-[400px] w-full">
-        <div className="max-w-4xl lg:max-w-7xl mx-auto px-4 lg:px-8 pt-16 pb-8 lg:pb-12 h-full flex flex-col justify-end">
-          <h2 className="text-4xl md:text-5xl font-semibold text-slime">Search for Bike Parking</h2>
+      <div className="w-full py-16">
+        <div className="container mx-auto">
+          {/* <div className="max-w-4xl lg:max-w-7xl mx-auto px-4 lg:px-8 pt-16 pb-8 lg:pb-12 h-full flex flex-col justify-end"> */}
+          <h2 className="text-4xl md:text-5xl font-semibold text-night text-center">
+            Search for Bike Parking
+          </h2>
           <div className="w-full mt-8">
             <Search />
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-4 lg:mx-auto my-8">
+      <div className="container mx-auto">
         <h4 className="text-xl font-semibold text-night mb-8">Search results</h4>
         {locations.totalDocs > 0 ? (
           <LocationArchive locations={locations.docs as CardPostData[]} />
