@@ -9,6 +9,7 @@ import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import { Badge } from '@/components/ui/badge'
+import { FoldingBadge } from '@/components/FoldingBikeFriendlyBadge/FoldingBadge'
 // import { PageProps } from '.next/types/app/(payload)/layout'
 import { Hero } from '@/components/Hero'
 import Image from 'next/image'
@@ -65,11 +66,17 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
 
   const city = location.city
   const titleCity = typeof city === 'object' ? city.title : city
-  const placeType = typeof location.placeType === 'object' ? location.placeType.title : location.placeType
+  const placeType =
+    typeof location.placeType === 'object' ? location.placeType.title : location.placeType
 
   return (
-    <article className='pb-24'>
-      <Hero title={location.title}></Hero>
+    <article className="pb-24">
+      {location.foldingBikeFriendly ? (
+        <Hero title={location.title} foldingBikeFriendly />
+      ) : (
+        <Hero title={location.title} />
+      )}
+
       <div className="container bg-bone rounded-xl border border-night py-4 flex flex-col lg:flex-row justify-between gap-6 -translate-y-8 lg:items-center">
         <div className="flex flex-col md:flex-row gap-4 md:gap-12 flex-1">
           <div>
