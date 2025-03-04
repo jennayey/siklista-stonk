@@ -22,7 +22,7 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx('max-w-[15rem] w-full h-[34px]', className)}
+      className={clsx('max-w-[175px] md:max-w-[12.5rem] w-full h-[34px]', className)}
       src="https://raw.githubusercontent.com/jennayey/siklista-stonk/refs/heads/master/public/logo-full-dark.svg"
     />
   )
