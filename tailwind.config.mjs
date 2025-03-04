@@ -59,6 +59,7 @@ const config = {
         bone: 'hsl(var(--bone))',
         night: 'hsl(var(--night))',
         ube: 'hsl(var(--ube))',
+        nightlite: 'hsl(var(--night-lite))',
         slime: {
           DEFAULT: 'hsl(var(--slime))',
         },

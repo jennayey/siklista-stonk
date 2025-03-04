@@ -12,6 +12,7 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -39,6 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer />
         </Providers>
       </body>
+      <GoogleAnalytics gaId='G-0D88X8Y420' />
     </html>
   )
 }
