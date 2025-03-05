@@ -12,6 +12,13 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Label } from '@/components/ui/label'
 import React, { useState, useEffect } from 'react'
@@ -22,7 +29,7 @@ import { cities } from './cities'
 export const Search: React.FC = () => {
   const [value, setValue] = useState('')
   const [city, setCity] = useState('')
-  const [open, setOpen] = React.useState(false)
+  // const [open, setOpen] = React.useState(false)
   const router = useRouter()
 
   const debouncedValue = useDebounce(value)
@@ -31,6 +38,11 @@ export const Search: React.FC = () => {
   // useEffect(() => {
   //   router.push(`/search${debouncedValue ? `?q=${debouncedValue}` : ''}`)
   // }, [debouncedValue, debouncedCategory, router])
+const handleValueChange = (value: string) => {
+setCity(value)
+}
+
+
   useEffect(() => {
     const query = new URLSearchParams()
     if (debouncedValue) query.set('q', debouncedValue)
@@ -38,7 +50,7 @@ export const Search: React.FC = () => {
     router.push(`/search?${query.toString()}`)
   }, [debouncedValue, debouncedCity, router])
   return (
-    <div className='mx-auto'>
+    <div className="mx-auto">
       <form
         className="grid grid-cols-1 md:grid-cols-3 gap-4"
         onSubmit={(e) => {
@@ -46,7 +58,7 @@ export const Search: React.FC = () => {
         }}
       >
         {/* input Field */}
-        <div className='col-span-1 md:col-span-2'>
+        <div className="col-span-1 md:col-span-2">
           <Label htmlFor="search" className="sr-only">
             Search
           </Label>
@@ -59,7 +71,7 @@ export const Search: React.FC = () => {
             placeholder="Search"
           />
         </div>
-        <Popover open={open} onOpenChange={setOpen}>
+        {/* <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
               variant="outline"
@@ -99,7 +111,22 @@ export const Search: React.FC = () => {
               </CommandList>
             </Command>
           </PopoverContent>
-        </Popover>
+        </Popover> */}
+        <Select onValueChange={handleValueChange} >
+          <SelectTrigger className="w-full lg:w-[300px] bg-bone border border-night rounded-xl px-4 py-6 justify-between  texd-md">
+            <SelectValue defaultValue={city} placeholder="Select City" className=''/>
+          </SelectTrigger>
+          <SelectContent className="w-full lg:w-[300px] p-0 rounded-xl border border-night overflow-clip">
+            {cities.map((cities) => (
+              <SelectItem
+                key={cities.value}
+                value={cities.value}
+              >
+                {cities.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         <button type="submit" className="sr-only">
           submit
         </button>

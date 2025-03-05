@@ -1,18 +1,19 @@
 export const cities = [
-  {
-    value: 'Pasig',
-    label: 'Pasig',
-  },
-  {
-    value: 'Quezon City',
-    label: 'Quezon City',
-  },
-  {
-    value: 'Mandaluyong',
-    label: 'Mandaluyong',
-  },
-  {
-    value: 'Makati',
-    label: 'Makati',
-  },
+  { value: 'Manila', label: 'Manila' },
+  { value: 'Quezon City', label: 'Quezon City' },
+  { value: 'Caloocan', label: 'Caloocan' },
+  { value: 'Las Piñas', label: 'Las Piñas' },
+  { value: 'Makati', label: 'Makati' },
+  { value: 'Malabon', label: 'Malabon' },
+  { value: 'Mandaluyong', label: 'Mandaluyong' },
+  { value: 'Marikina', label: 'Marikina' },
+  { value: 'Muntinlupa', label: 'Muntinlupa' },
+  { value: 'Navotas', label: 'Navotas' },
+  { value: 'Parañaque', label: 'Parañaque' },
+  { value: 'Pasay', label: 'Pasay' },
+  { value: 'Pasig', label: 'Pasig' },
+  { value: 'Pateros', label: 'Pateros' },
+  { value: 'San Juan', label: 'San Juan' },
+  { value: 'Taguig', label: 'Taguig' },
+  { value: 'Valenzuela', label: 'Valenzuela' },
 ]
