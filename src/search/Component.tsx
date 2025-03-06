@@ -52,19 +52,19 @@ setCity(value)
   return (
     <div className="mx-auto">
       <form
-        className="grid grid-cols-1 md:grid-cols-3 gap-4"
+        className="grid grid-cols-3 md:grid-cols-3 gap-2 lg:gap-4"
         onSubmit={(e) => {
           e.preventDefault()
         }}
       >
         {/* input Field */}
-        <div className="col-span-1 md:col-span-2">
+        <div className="col-span-2 md:col-span-2">
           <Label htmlFor="search" className="sr-only">
             Search
           </Label>
           <Input
             id="search"
-            className="bg-bone border border-night rounded-xl px-4 py-6 w-full texd-md"
+            className="bg-bone border border-night rounded-xl px-4  py-2 lg:py-6 w-full texd-md"
             onChange={(event) => {
               setValue(event.target.value)
             }}
@@ -113,7 +113,7 @@ setCity(value)
           </PopoverContent>
         </Popover> */}
         <Select onValueChange={handleValueChange} >
-          <SelectTrigger className="w-full lg:w-[300px] bg-bone border border-night rounded-xl px-4 py-6 justify-between  texd-md">
+          <SelectTrigger className="w-full lg:w-[300px] bg-bone border border-night rounded-xl px-4 py-2 lg:py-6 justify-between  texd-md">
             <SelectValue defaultValue={city} placeholder="Select City" className=''/>
           </SelectTrigger>
           <SelectContent className="w-full lg:w-[300px] p-0 rounded-xl border border-night overflow-clip">

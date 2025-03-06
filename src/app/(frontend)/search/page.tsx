@@ -95,27 +95,28 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   return (
     <div className="pb-24">
       <PageClient />
-      <div className="w-full py-16">
+      <div className="w-full py-2 lg:py-16 border-b border-night">
         <div className="container mx-auto">
           {/* <div className="max-w-4xl lg:max-w-7xl mx-auto px-4 lg:px-8 pt-16 pb-8 lg:pb-12 h-full flex flex-col justify-end"> */}
-          <h2 className="text-4xl md:text-5xl font-semibold text-night text-center">
+          <h2 className="hidden lg:block text-xl md:text-5xl font-semibold text-night text-center">
             Search for Bike Parking
           </h2>
-          <div className="w-full mt-8">
+          <div className="w-full lg:mt-8">
             <Search />
           </div>
         </div>
       </div>
-
-      <div className="container mx-auto">
-        <h4 className="text-xl font-semibold text-night mb-8">Search results</h4>
-        {locations.totalDocs > 0 ? (
-          <LocationArchive locations={locations.docs as CardPostData[]} />
-        ) : (
-          <div className="mx-auto">Oops. No matching results. Maybe try another place?</div>
-        )}
+      {/* Search results */}
+        <div className="container mx-auto pt-6">
+          {locations.totalDocs > 0 ? (<h4 className="text-md lg:text-xl font-semibold text-slate-500 mb-4">Search results</h4>) : null}
+         
+          {locations.totalDocs > 0 ? (
+            <LocationArchive locations={locations.docs as CardPostData[]} />
+          ) : (
+            <div className="mx-auto">Oops. No matching results. Maybe try another place?</div>
+          )}
+        </div>
       </div>
-    </div>
   )
 }
 

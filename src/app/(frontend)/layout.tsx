@@ -34,13 +34,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               preview: isEnabled,
             }}
           />
-
           <Header />
           {children}
           <Footer />
         </Providers>
       </body>
-      <GoogleAnalytics gaId='G-0D88X8Y420' />
+      <GoogleAnalytics gaId="G-0D88X8Y420" />
     </html>
   )
 }
