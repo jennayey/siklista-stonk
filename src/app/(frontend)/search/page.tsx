@@ -1,5 +1,5 @@
 import type { Metadata } from 'next/types'
-
+import { Suspense } from 'react'
 import { LocationArchive } from '@/components/LocationArchive'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -7,12 +7,16 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/CardLocation'
-
+import { Skeleton } from '@/components/ui/skeleton'
 type Args = {
   searchParams: Promise<{
     q: string
     city: string
   }>
+}
+
+function SearchCardSkeleton() {
+  return <Skeleton className="h-[125px] w-[250px] rounded-xl" />
 }
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
   const { q: query, city } = await searchParamsPromise
@@ -107,17 +111,19 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
         </div>
       </div>
       {/* Search results */}
-      <div className="container mx-auto pt-6">
-        {locations.totalDocs > 0 ? (
-          <h4 className="text-md lg:text-xl font-semibold text-slate-500 mb-4">Search results</h4>
-        ) : null}
+      <Suspense fallback={<SearchCardSkeleton />}>
+        <div className="container mx-auto pt-6">
+          {locations.totalDocs > 0 ? (
+            <h4 className="text-md lg:text-xl font-semibold text-slate-500 mb-4">Search results</h4>
+          ) : null}
 
-        {locations.totalDocs > 0 ? (
-          <LocationArchive locations={locations.docs as CardPostData[]} />
-        ) : (
-          <div className="mx-auto">Oops. No matching results. Maybe try another place?</div>
-        )}
-      </div>
+          {locations.totalDocs > 0 ? (
+            <LocationArchive locations={locations.docs as CardPostData[]} />
+          ) : (
+            <div className="mx-auto">Oops. No matching results. Maybe try another place?</div>
+          )}
+        </div>
+      </Suspense>
     </div>
   )
 }
