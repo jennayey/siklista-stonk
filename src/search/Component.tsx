@@ -68,7 +68,7 @@ setCity(value)
             onChange={(event) => {
               setValue(event.target.value)
             }}
-            placeholder="Search"
+            placeholder="Search for places or establishments..."
           />
         </div>
         {/* <Popover open={open} onOpenChange={setOpen}>
@@ -114,7 +114,7 @@ setCity(value)
         </Popover> */}
         <Select onValueChange={handleValueChange} >
           <SelectTrigger className="col-span-5 md:col-span-1 w-full bg-bone border border-night rounded-xl px-2 lg:px-4 py-2 lg:py-6 justify-between text-sm lg:text-lg ">
-            <SelectValue defaultValue={city} placeholder="City" className='text-sm'/>
+            <SelectValue defaultValue={city} placeholder="Select City" className='text-sm'/>
           </SelectTrigger>
           <SelectContent className="w-full p-0 rounded-xl border border-night overflow-clip">
             {cities.map((cities) => (
