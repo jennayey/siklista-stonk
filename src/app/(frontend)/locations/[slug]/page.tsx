@@ -91,6 +91,12 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
             <p className="text-sm text-gray-600 mb-[2px]">Category</p>
             <Badge>{placeType}</Badge>
           </div>
+          {location.contributor && (
+            <div>
+              <p className="text-sm text-gray-600 mb-[2px]">Contributor</p>
+              <p className="text-md font-semibold text-night">{location.contributor}</p>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-row gap-4">
@@ -98,7 +104,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
           
           */}
           <Button variant="default" size="default">
-            <Link href="/">Contribute</Link>
+            <Link href="https://forms.gle/Y9iaNirFSrxEZPqw7">Contribute</Link>
           </Button>
         </div>
       </div>

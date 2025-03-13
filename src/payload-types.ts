@@ -686,6 +686,7 @@ export interface Location {
   title: string;
   _status: 'draft' | 'published';
   placeType: string | PlaceCategory;
+  contributor?: string | null;
   city: string | City;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -1292,6 +1293,7 @@ export interface LocationsSelect<T extends boolean = true> {
   title?: T;
   _status?: T;
   placeType?: T;
+  contributor?: T;
   city?: T;
   slug?: T;
   slugLock?: T;

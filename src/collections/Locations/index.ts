@@ -51,6 +51,14 @@ export const Locations: CollectionConfig<'locations'> = {
       },
     },
     {
+      name: 'contributor',
+      label: 'Contributor Name/Username',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'city',
       type: 'relationship',
       hasMany: false,
