@@ -18,7 +18,7 @@ export async function Footer() {
       <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
         <Link className="flex items-center" href="/">
           {/* <Logo /> */}
-          <p className='text-night'>© 2025 Siklista Parking</p>
+          <p className='text-night'>© 2025 Siklista Parking PH</p>
         </Link>
 
         <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
