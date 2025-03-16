@@ -6,7 +6,7 @@ export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc 
   } = searchDoc
 
   const { slug, id, categories, title, meta, city, placeType} = originalDoc
-  console.log('City field in originalDoc:', city)
+  // console.log('City field in originalDoc:', city)
 
   const modifiedDoc: DocToSync = {
     ...searchDoc,

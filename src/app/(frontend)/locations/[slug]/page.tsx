@@ -5,6 +5,7 @@ import { formatDateTime } from 'src/utilities/formatDateTime'
 
 // import { RenderBlocks } from '@/utils/RenderBlocks'
 // import { generateMeta } from '@/utils/generateMeta'
+import { Media } from '@/payload-types'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -14,6 +15,9 @@ import { FoldingBadge } from '@/components/FoldingBikeFriendlyBadge/FoldingBadge
 import { Hero } from '@/components/Hero'
 import Image from 'next/image'
 import Link from 'next/link'
+import fs from 'node:fs/promises'
+
+import { getPlaiceholder } from 'plaiceholder'
 export const dynamic = 'force-static'
 export const revalidate = 600
 
@@ -34,21 +38,102 @@ export async function generateStaticParams() {
   })
 
   return params
-
-  // return (
-  //   locations.docs
-  //     ?.filter((doc) => {
-  //       return doc.slug !== 'index'
-  //     })
-  //     .map((doc) => ({
-  //       slug: doc.slug,
-  //     })) || []
-  // )
 }
 type Args = {
   params: Promise<{
     slug?: string
   }>
+}
+
+// Define types for parking items
+interface ParkingPhotoType {
+  url?: string
+  // Add other possible properties you need
+  [key: string]: any
+}
+
+type ParkingItem = {
+  parkingPhoto: string | Media
+  parkingLocation: string
+  parkingDescription: string
+  parkingCovered: boolean
+  parkingSecured: boolean
+  parkingRates: boolean
+  parkingRateFee?: string | null | undefined
+  blurDataURL?: string
+}
+// Helper function to generate blur data URLs
+async function getBlurDataURL(imageUrl: string): Promise<string> {
+  try {
+    // For remote images
+    const buffer = await fetch(imageUrl).then(async (res) => Buffer.from(await res.arrayBuffer()))
+
+    const { base64 } = await getPlaiceholder(buffer)
+    return base64
+  } catch (error) {
+    console.error('Error generating placeholder:', error)
+    // Return a default blur data URL if generation fails
+    return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
+  }
+}
+
+// Enhanced parking list component with blur placeholders
+async function ParkingList({ parkingList }: { parkingList: ParkingItem[] }) {
+  // Process each parking item to add blur placeholders
+ 
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {parkingList.map((item, index) => (
+        <div className="rounded-xl border border-night overflow-clip" key={index}>
+          <div className="h-[200px] w-full relative bg-gray-100">
+            <Image
+              className="object-cover"
+              placeholder="blur"
+              blurDataURL={
+                'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='
+              }
+              src={typeof item.parkingPhoto === 'string' ? '' : item.parkingPhoto?.url || ''}
+              fill
+              sizes="100vw"
+              alt="Parking Photo"
+            />
+          </div>
+          <div className="flex flex-col gap-4 p-4 pt-6">
+            <div>
+              <p className="text-lg font-semibold text-night mb-1">{item.parkingLocation}</p>
+              <p className="text-sm font-medium text-gray-500">{item.parkingDescription}</p>
+            </div>
+            <hr />
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-[2px] text-center">
+                  Parking type
+                </p>
+                <p className="text-sm font-medium text-night text-center">
+                  {item.parkingCovered ? 'Covered' : 'Outdoor'}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-[2px] text-center">Secured</p>
+                <p className="text-sm font-medium text-night text-center">
+                  {item.parkingSecured ? '✅' : '❌'}
+                </p>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-[2px] text-center">
+                  Parking Fees
+                </p>
+                <p className="text-sm font-medium text-night text-center">
+                  {item.parkingRates ? item.parkingRateFee : 'Free'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default async function LocationPage({ params: paramsPromise }: Args) {
@@ -112,61 +197,7 @@ export default async function LocationPage({ params: paramsPromise }: Args) {
         <h4 className="text-xl font-semibold text-night mb-8">
           {location.parkingList.length} Parking Locations
         </h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {location.parkingList.map((item, index) => {
-            return (
-              <div className="rounded-xl border border-night overflow-clip" key={index}>
-                <div className="h-[200px] w-full relative">
-                  <Image
-                    className="object-cover"
-                    // placeholder='blur'
-                    src={typeof item.parkingPhoto === 'string' ? ' ' : item.parkingPhoto?.url || ''}
-                    fill
-                    sizes="100vw"
-                    alt="Parking Photo"
-                    // onClick={() => {
-                    //   setIndex(0)
-                    //   setOpen(true)
-                    // }}
-                  />
-                </div>
-                <div className="flex flex-col gap-4 p-4 pt-6">
-                  <div>
-                    <p className="text-lg font-semibold text-night mb-1">{item.parkingLocation}</p>
-                    <p className="text-sm font-medium text-gray-500">{item.parkingDescription}</p>
-                  </div>
-                  <hr />
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <p className="text-xs font-medium text-gray-500 mb-[2px] text-center">
-                        Parking type
-                      </p>
-                      <p className="text-sm font-medium text-night text-center">
-                        {item.parkingCovered ? 'Covered' : 'Outdoor'}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-gray-500 mb-[2px] text-center">
-                        Secured
-                      </p>
-                      <p className="text-sm font-medium text-night text-center">
-                        {item.parkingSecured ? '✅' : '❌'}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-gray-500 mb-[2px] text-center">
-                        Parking Fees
-                      </p>
-                      <p className="text-sm font-medium text-night text-center">
-                        {item.parkingRates ? item.parkingRateFee : 'Free'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+        <ParkingList parkingList={location.parkingList} />
       </div>
 
       {/* <div className="">
