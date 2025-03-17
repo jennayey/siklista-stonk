@@ -7,7 +7,7 @@ import { slugField } from '@/fields/slug'
 export const Cities: CollectionConfig = {
   slug: 'cities',
   access: {
-    create: authenticated,
+    create: anyone,
     delete: authenticated,
     read: anyone,
     update: authenticated,
