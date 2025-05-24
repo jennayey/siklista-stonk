@@ -1,51 +1,53 @@
 // pages/submit-city.tsx
 'use client'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 interface FormDataValues {
-  title: string;
+  title: string
 }
 
 const SubmitCity: React.FC = () => {
   const [formData, setFormData] = useState<FormDataValues>({
     title: '',
-  });
+  })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
     try {
       //get the JWT token from local storage, or wherever you store it.
-      const token = localStorage.getItem('jwt');
+      // const token = localStorage.getItem('jwt')
 
       const response = await fetch('/api/cities', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `JWT ${token}` //send the JWT token.
+          // Authorization: `Bearer ${token}`, //send the JWT token.
         },
+        credentials: 'include', // This is important - it includes cookies with the request
+
         body: JSON.stringify(formData),
-      });
+      })
 
       if (response.ok) {
-        const data = await response.json();
-        console.log('Submission successful:', data);
-        alert('Submission successful!');
-        setFormData({ title: '' });
+        const data = await response.json()
+        console.log('Submission successful:', data)
+        alert('Submission successful!')
+        setFormData({ title: '' })
       } else {
-        console.error('Submission failed:', response.statusText);
-        alert('Submission failed. Please try again. Make sure you are logged in.');
+        console.error('Submission failed:', response.statusText)
+        alert('Submission failed. Please try again. Make sure you are logged in.')
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred. Please try again. Make sure you are logged in.');
+      console.error('Error:', error)
+      alert('An error occurred. Please try again. Make sure you are logged in.')
     }
-  };
+  }
 
   return (
     <div>
@@ -65,7 +67,7 @@ const SubmitCity: React.FC = () => {
         <button type="submit">Submit</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SubmitCity;
+export default SubmitCity
