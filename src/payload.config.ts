@@ -64,7 +64,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Locations, Cities, PlaceCategory],
-  cors: ['http://localhost:8081', 'null'].filter(Boolean),
+  cors: ['http://localhost:8081', 'http://localhost:3000',  'https://siklista-website-git-dev-jennayeys-projects.vercel.app', getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
     ...plugins,
