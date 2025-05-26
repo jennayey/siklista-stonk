@@ -30,7 +30,6 @@ const SubmitCity: React.FC = () => {
           // Authorization: `Bearer ${token}`, //send the JWT token.
         },
         credentials: 'include', // This is important - it includes cookies with the request
-
         body: JSON.stringify(formData),
       })
 

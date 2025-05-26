@@ -64,7 +64,7 @@ export default buildConfig({
     url: process.env.DATABASE_URI || '',
   }),
   collections: [Pages, Posts, Media, Categories, Users, Locations, Cities, PlaceCategory],
-  cors: [getServerSideURL()].filter(Boolean),
+  cors: [getServerSideURL(), 'http://localhost:8081'].filter(Boolean),
   globals: [Header, Footer],
   plugins: [
     ...plugins,
